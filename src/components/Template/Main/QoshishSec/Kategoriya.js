@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Qoshilganlar from './Qoshilganlar';
-import { useOutletContext } from 'react-router-dom';
 
 const KategoriyaDiv = styled.div`
   padding: 45px 146px 0 0;

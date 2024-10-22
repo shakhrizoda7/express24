@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import SectionTitles from '../SectionTitles';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link, NavLink, Route, Routes } from 'react-router-dom';
 import Qoshilganlar from './Qoshilganlar';
 import Taom from './Taom';
 import Kategoriya from './Kategoriya';
@@ -10,11 +10,16 @@ const QoshishDiv = styled.div`
   .qoshishBtns{
     margin-top: 20px;
   }
+  .activeBtn{
+    background-color: #FFEC00;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    border-radius: 10px;
+  }
 `;
 
 const StyledButton = styled.button`
-  background-color: ${(props) => (props.bgYellow ? '#FFEC00' : 'transparent')};
-  box-shadow: ${(props) => (props.bgYellow ? "0px 4px 4px 0px #00000040" : "none")};
+  background-color: transparent;
+  box-shadow: none;
   border: none;
   border-radius: 10px;
   padding: 15px 17px;
@@ -26,17 +31,9 @@ const StyledButton = styled.button`
 `;
 
 export default function Qoshish() {
-  // bg yellow btn state;
-  const [activeBtn, setActiveBtn] = useState('kategoriya');
-  // category state;
   const [kategoriyalar, setKategoriyalar] = useState([]);
   // foods state;
   const [taomlar, setTaomlar] = useState([]);
-
-
-  const isClickFunc = (buttonName) => {
-    setActiveBtn(buttonName);
-  };
 
   // add category function 
   const add = (kategoriyaItem) => {
@@ -55,23 +52,23 @@ export default function Qoshish() {
 
       {/* buttons */}
         <div className='qoshishBtns d-flex gap-3 btns'>
-          <Link to={'kategoriya'}>
-            <StyledButton onClick={() => isClickFunc('kategoriya')} bgYellow={activeBtn === 'kategoriya'}>
+          <NavLink to={'kategoriya'} className={({isActive}) => (isActive ? 'activeBtn' : '')}>
+            <StyledButton>
               Kategoriya
             </StyledButton>
-          </Link>
+          </NavLink>
 
-          <Link to={'taom'}>
-            <StyledButton onClick={() => isClickFunc('taom')} bgYellow={activeBtn === 'taom'}>
+          <NavLink to={'taom'} className={({isActive}) => (isActive ? 'activeBtn' : '')}>
+            <StyledButton>
               Taom
             </StyledButton>
-          </Link>
+          </NavLink>
 
-          <Link to={'qoshilganlar'}>
-            <StyledButton onClick={() => isClickFunc('qoshilganlar')} bgYellow={activeBtn === 'qoshilganlar'}>
+          <NavLink to={'qoshilganlar'} className={({isActive}) => (isActive ? 'activeBtn' : '')}>
+            <StyledButton>
               Qo'shilganlar
             </StyledButton>
-          </Link>
+          </NavLink>
         </div>
 
         <Routes>

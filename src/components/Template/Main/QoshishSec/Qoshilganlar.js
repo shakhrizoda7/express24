@@ -29,18 +29,20 @@ export default function Qoshilganlar({kategoriyalar, taomlar}) {
         {/* food div */}
         <div className="foodDiv mt-5">
             <h5>Qo'shilgan Taomlar:</h5>
-
-            {taomlar.map((taom, index) => (
-                <Card style={{ width: '18rem' }} className='mt-4 shadow-sm card'>
-                    <Card.Img variant="top" src={taom.image} />
-                    <Card.Body>
-                        <Card.Title>{taom.foodname}</Card.Title>
-                        <Card.Text>{taom.description}</Card.Text>
-                        <h6>{taom.price} so'm</h6>
-                        <p>• {taom.category}</p>
-                    </Card.Body>  
-                </Card>
-            ))}
+            
+            <div className="d-flex gap-4 align-items-center">
+                {taomlar.map((taom, index) => (
+                    <Card style={{ width: '18rem' }} className='mt-4 shadow-sm card'>
+                        <Card.Img variant="top" src={taom.image} />
+                        <Card.Body>
+                            <Card.Title>{taom.foodname}</Card.Title>
+                            <Card.Text>{taom.description}</Card.Text>
+                            <h6>{taom.price} so'm</h6>
+                            <p>• {taom.category}</p>
+                        </Card.Body>  
+                    </Card>
+                ))}
+            </div>
         </div>
     </QoshilganlarDiv>
   );
