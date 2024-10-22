@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import SectionTitles from '../SectionTitles';
-import { Link, Outlet, Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import Qoshilganlar from './Qoshilganlar';
 import Taom from './Taom';
 import Kategoriya from './Kategoriya';

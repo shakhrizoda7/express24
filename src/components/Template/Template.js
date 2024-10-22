@@ -8,7 +8,6 @@ const TemplateDiv = styled.div`
     ::selection{
         background-color: #FFE066;
     }
-
     display: flex;
 
     .rightside{

@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const HeaderDiv = styled.div`
     width: 100%;
@@ -15,6 +16,12 @@ const HeaderDiv = styled.div`
     i, .admin{
         cursor: pointer;
     }
+    .admin{
+        a{
+            text-decoration: none;
+            color: black;
+        }
+    }
 `;
 
 export default function Header({toggleAside}) {
@@ -22,9 +29,11 @@ export default function Header({toggleAside}) {
     <HeaderDiv>
         <i class="bi bi-list fs-4" onClick={toggleAside}></i>
 
-        <div className="admin d-flex align-items-center gap-2">
-            <i class="bi bi-person fs-4"></i>
-            <h5 className='m-0'>Admin</h5>
+        <div className="admin">
+            <Link to='admin' className='d-flex align-items-center gap-2'>
+                <i class="bi bi-person fs-4"></i>
+                <h5 className='m-0'>Admin</h5>
+            </Link>
         </div>
     </HeaderDiv>
 )
