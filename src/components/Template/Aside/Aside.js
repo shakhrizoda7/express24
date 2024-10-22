@@ -105,7 +105,7 @@ const MenuData = [
 export default function Aside() {
   return (
     <AsideDiv>
-        <img src="https://s3-alpha-sig.figma.com/img/3adf/337a/c92ea43a8230d3202109b56332279b90?Expires=1729468800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=f~jmHUsJTm4anYfSJxDMKUeBxI~WWtaI9hSPuukTYmqzJr-I2rJCDcS5myWvjk6ECRUrhcIXeZX66KrB5DMgm8fniOT9B-L8SOdguWdonIMm57qF3Pf7w9HIoUN9yclLgWNvB0--82aDO-vLKL-mzdhINU6PskdZJAjcLSwM3hdbYX~yezKk7AkkFOc-B11CEC3rPdy2S5eNhv991GuhxJMiiYXDK--JMC2pApDB4rn3S3DQihJDroboRwDTuWCG1qrMocjTwW4o9iWdJWr4L3uK2yKdJqVmTX9Q1vAHPPdih3vP2P~12hTCTf6wyWFNZ4IXBrqFM0VdDXo3nMfmIA__" alt="" />
+        <img src="https://s3-alpha-sig.figma.com/img/3adf/337a/c92ea43a8230d3202109b56332279b90?Expires=1729468800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=f~jmHUsJTm4anYfSJxDMKUeBxI~WWtaI9hSPuukTYmqzJr-I2rJCDcS5myWvjk6ECRUrhcIXeZX66KrB5DMgm8fniOT9B-L8SOdguWdonIMm57qF3Pf7w9HIoUN9yclLgWNvB0--82aDO-vLKL-mzdhINU6PskdZJAjcLSwM3hdbYX~yezKk7AkkFOc-B11CEC3rPdy2S5eNhv991GuhxJMiiYXDK--JMC2pApDB4rn3S3DQihJDroboRwDTuWCG1qrMocjTwW4o9iWdJWr4L3uK2yKdJqVmTX9Q1vAHPPdih3vP2P~12hTCTf6wyWFNZ4IXBrqFM0VdDXo3nMfmIA__" alt="express24 logo" />
 
         <div className="menu">
             {MenuData.map((item, index) => (
