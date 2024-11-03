@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const QoshilganlarDiv = styled.div`
@@ -7,21 +8,24 @@ const QoshilganlarDiv = styled.div`
     height: calc(100vh - 290px);
     padding: 45px 0 10px 15px;
 
-    .card{
+    .card {
         border: none !important;
         background-color: #FFFCED;
     }
-`
+`;
 
-export default function Qoshilganlar({kategoriyalar, taomlar}) {
+export default function Qoshilganlar() {
+    const category = useSelector((state) => state.category);
+    const foods = useSelector((state) => state.foods);
   return (
     <QoshilganlarDiv>
         {/* category div */}
         <div>
             <h5>Qo'shilgan Kategoriyalar:</h5>
+            
             <ol className='ps-3'>
-                {kategoriyalar.map((kategoriya, index) => (
-                    <li key={index} className='pt-2'>{kategoriya}</li>
+                {category.map((category, index) => (
+                    <li key={index} className='pt-2'>{category}</li>
                 ))}
             </ol>
         </div>
@@ -31,17 +35,22 @@ export default function Qoshilganlar({kategoriyalar, taomlar}) {
             <h5>Qo'shilgan Taomlar:</h5>
             
             <div className="d-flex gap-4 align-items-center">
-                {taomlar.map((taom, index) => (
-                    <Card style={{ width: '18rem' }} className='mt-4 shadow-sm card'>
-                        <Card.Img variant="top" src={taom.image} />
+                {foods.map((food, index) => (
+                    <Card key={index} style={{ width: '18rem' }} className='mt-4 shadow-sm card'>
+                        <Card.Img variant="top" src={food.image} />
                         <Card.Body>
-                            <Card.Title>{taom.foodname}</Card.Title>
-                            <Card.Text>{taom.description}</Card.Text>
-                            <h6>{taom.price} so'm</h6>
-                            <p>• {taom.category}</p>
+                            <Card.Title>{food.foodname}</Card.Title>
+                            <Card.Text>{food.description}</Card.Text>
+                            <h6>{food.price} so'm</h6>
+                            <p>• {food.category}</p>
                         </Card.Body>  
                     </Card>
                 ))}
+                {/* {foods.length > 0 ? (
+                    
+                ) : (
+                    <p>Hech qanday taom qo'shilmagan.</p>
+                )} */}
             </div>
         </div>
     </QoshilganlarDiv>

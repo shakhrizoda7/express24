@@ -25,7 +25,7 @@ const initialData = [
 ];
 
 export default function Yetkazilgan() {
-  const [tableData, setTableData] = useState(initialData);
+  const [tableData] = useState(initialData);
 
   return (
     <YetkazilganDiv>

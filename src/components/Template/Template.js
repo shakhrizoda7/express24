@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import Header from './Header/Header';
 import Aside from './Aside/Aside';
 import { Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
+// template div style
 const TemplateDiv = styled.div`
     ::selection{
         background-color: #FFE066;
@@ -19,13 +21,9 @@ const TemplateDiv = styled.div`
     }
 `;
 
-
 export default function Template() {
-    const [isVisible, setIsVisible] = useState(false);
+  const isVisible = useSelector((state) => state.isVisible);
 
-    const toggleAside = () =>{
-        setIsVisible(hide => !hide);
-    }
   return (
         <TemplateDiv>
             <aside>
@@ -34,7 +32,7 @@ export default function Template() {
 
             <section className='rightside'>
                 <header>
-                    <Header toggleAside={toggleAside}/>
+                    <Header/>
                 </header>
 
                 <main>

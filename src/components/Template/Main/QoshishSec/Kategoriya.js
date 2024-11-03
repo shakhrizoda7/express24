@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { addCategory } from '../../../redux/Reducer';
+import { useDispatch } from 'react-redux';
 
 const KategoriyaDiv = styled.div`
   padding: 45px 146px 0 0;
@@ -30,20 +32,24 @@ const KategoriyaDiv = styled.div`
 
 `;
 
-export default function Kategoriya({handleKategoriyaAdd}) {
-  const [kategoriya, setKategoriya] = useState('');
+export default function Kategoriya() {
+  const dispatch = useDispatch();
+  const [category, setCategory] = useState('');
 
   const handleAdd = () => {
-    if (kategoriya) {
-      handleKategoriyaAdd(kategoriya);
-      setKategoriya('');
+    if (category) {
+      dispatch(addCategory(category))
+      setCategory('');
     }
   };
 
   return (
     <KategoriyaDiv>
       <div>
-        <input type="text" className='form-control' placeholder='Kategoriya nomi' value={kategoriya} onChange={(e) => setKategoriya(e.target.value)}/>
+        <input type="text" className='form-control' 
+          placeholder='Kategoriya nomi'
+          value={category} 
+          onChange={(e) => setCategory(e.target.value)}/>
 
         <button onClick={handleAdd}>Qo'shish</button>
       </div>

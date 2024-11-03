@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { addFood } from '../../../redux/Reducer';
 
 const TaomDiv = styled.div`
   display: flex;
@@ -59,10 +61,13 @@ const TaomDiv = styled.div`
       background-color: #FFE066;
     }
   }
-`
+`;
 
-export default function Taom({handleFoodAdd}) {
-  const [taom, setTaom] = useState({
+export default function Taom() {
+  const dispatch = useDispatch();
+
+  // food state
+  const [food, setFood] = useState({
     image: '',
     foodname: '',
     description: '',
@@ -70,40 +75,40 @@ export default function Taom({handleFoodAdd}) {
     category: '',
   });
 
-  const handleChange = (e) =>{
-    const {name, value} = e.target;
-    setTaom((prevfood) => ({
-      ...prevfood, 
-      [name] : value
-    }));
+  // onchange
+  const handleChange = (e) => {
+    setFood({ ...food, [e.target.name]: e.target.value });
   };
 
-  const foodAdd = () =>{
-    if(taom.image && taom.foodname && taom.description && taom.price && taom.category){
-      handleFoodAdd(taom);
-
-      setTaom({
+  // food function
+  const foodAdd = () => {
+    if(food.image !== '' && food.foodname !== '' && food.description !== '' && food.price !== '' && food.category !== ''){
+      dispatch(addFood(food));
+  
+      // clear input
+      setFood({
         image: '',
         foodname: '',
         description: '',
         price: '',
         category: '',
       });
+    } else {
+      alert("To'liq to'ldirilmagan");
     }
-  }
+  };
 
   return (
     <TaomDiv>
       <div className="inputs">
         <div>
-          <input type="text" placeholder="Rasm linki" 
-            name='image'
-            value={taom.image}
+          <input type="text" placeholder="Rasm linki" name='image'
+            value={food.image}
             onChange={handleChange}/>
 
           <input type="text" placeholder='Taom nomi'
             name='foodname'
-            value={taom.foodname}
+            value={food.foodname}
             onChange={handleChange}/>
         </div>
 
@@ -111,21 +116,20 @@ export default function Taom({handleFoodAdd}) {
           name='description'
           className='tarifInput' 
           rows={5}
-          value={taom.description}
+          value={food.description}
           onChange={handleChange}/>
 
         <div>
           <input type="text" placeholder='Narxi'
             name='price'
-            value={taom.price}
+            value={food.price}
             onChange={handleChange}/>
           
-          <select name="category" value={taom.category}
-            onChange={handleChange}>
+          <select name="category" value={food.category} onChange={handleChange}>
             <option value="">Kategoriya</option>
-            <option value="admin">Admin</option>
-            <option value="yetkazuvchi">Yetkazuvchi</option>
-            <option value="foydalanuvchi">Foydalanuvchi</option>
+            <option value="kategoriya 1">Kategoriya 1</option>
+            <option value="kategoriya 2">Kategoriya 2</option>
+            <option value="kategoriya 3">Kategoriya 3</option>
           </select>
         </div>
       </div>

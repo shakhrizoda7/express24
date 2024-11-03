@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import SectionTitles from '../SectionTitles';
-import { Link, NavLink, Route, Routes } from 'react-router-dom';
+import { NavLink, Route, Routes } from 'react-router-dom';
 import Qoshilganlar from './Qoshilganlar';
 import Taom from './Taom';
 import Kategoriya from './Kategoriya';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCategory, addFood } from '../../../redux/Reducer';
 
 const QoshishDiv = styled.div`
   .qoshishBtns{
@@ -31,19 +33,26 @@ const StyledButton = styled.button`
 `;
 
 export default function Qoshish() {
-  const [kategoriyalar, setKategoriyalar] = useState([]);
-  // foods state;
-  const [taomlar, setTaomlar] = useState([]);
+  const dispatch = useDispatch();
+  const categories = useSelector(state => state.category);
+  const foods = useSelector(state => state.food);
 
   // add category function 
-  const add = (kategoriyaItem) => {
-    setKategoriyalar([...kategoriyalar, kategoriyaItem]);
+  const handleCategoryAdd = (categpryItem) => {
+    dispatch(addCategory(categpryItem));
   };
 
   // add food function
-  const addFood = (fooditem) => {
-    setTaomlar([...taomlar, fooditem]);
-  }
+  const handleFoodAdd = (foodItem) => {
+    dispatch(addFood(foodItem));
+  };
+
+  // btns data
+  const qoshishBtnsData = [
+    {title: 'Kategoriya', path: 'kategoriya'},
+    {title: 'Taom', path: 'taom'}, 
+    {title: "Qo'shilganlar", path: 'qoshilganlar'}
+  ];
 
   return (
     <QoshishDiv>
@@ -52,30 +61,20 @@ export default function Qoshish() {
 
       {/* buttons */}
         <div className='qoshishBtns d-flex gap-3 btns'>
-          <NavLink to={'kategoriya'} className={({isActive}) => (isActive ? 'activeBtn' : '')}>
-            <StyledButton>
-              Kategoriya
-            </StyledButton>
-          </NavLink>
-
-          <NavLink to={'taom'} className={({isActive}) => (isActive ? 'activeBtn' : '')}>
-            <StyledButton>
-              Taom
-            </StyledButton>
-          </NavLink>
-
-          <NavLink to={'qoshilganlar'} className={({isActive}) => (isActive ? 'activeBtn' : '')}>
-            <StyledButton>
-              Qo'shilganlar
-            </StyledButton>
-          </NavLink>
+          {qoshishBtnsData.map((item) => (
+            <NavLink to={item.path} className={({isActive}) => (isActive ? 'activeBtn' : '')}>
+              <StyledButton>
+                {item.title}
+              </StyledButton>
+            </NavLink>
+          ))}
         </div>
 
         <Routes>
-            <Route path="kategoriya" element={<Kategoriya handleKategoriyaAdd={add}/>}/>
+            <Route path="kategoriya" element={<Kategoriya handleKategoriyaAdd={handleCategoryAdd}/>}/>
             <Route index element={<Kategoriya/>}/>
-            <Route path="taom" element={<Taom handleFoodAdd={addFood}/>}/>
-            <Route path="qoshilganlar" element={<Qoshilganlar kategoriyalar={kategoriyalar} taomlar={taomlar}/>}/>
+            <Route path="taom" element={<Taom handleFoodAdd={handleFoodAdd}/>}/>
+            <Route path="qoshilganlar" element={<Qoshilganlar katagoriya={categories} taom={foods}/>}/>
         </Routes>
     </QoshishDiv>
   )

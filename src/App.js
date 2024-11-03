@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { createContext, useState } from "react";
+import { useSelector } from "react-redux";
+
 import Template from "./components/Template/Template";
 import Arizalar from "./components/Template/Main/Arizalar";
 import Yetkazilgan from "./components/Template/Main/Yetkazilgan";
@@ -14,18 +15,16 @@ import Landing from "./components/Landing";
 import Login from "./components/Login";
 import Page404 from "./components/Page404";
 
-const LoginContext = createContext({islogin: false, setLogin: () => {}})
 
 function App() {
-  const [isLogin, setLogin] = useState(false);
+  const isLogin = useSelector((state) => state.isLogin);
 
   return (
-    <BrowserRouter>
-      <LoginContext.Provider value={{isLogin, setLogin}}>
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login/>}/>
           <Route path="/login" element={<Landing/>}/>
-          {isLogin && (
+          {isLogin ? (
             <Route path="/dashboard" element={<Template/>}>
               <Route path="arizalar" element={<Arizalar/>}/>
               <Route path="yetkazilgan" element={<Yetkazilgan/>}/>
@@ -41,13 +40,12 @@ function App() {
               <Route path="admin" element={<Admin/>}/>
               <Route path="foydalanuvchilar" element={<Foydalanuvchilar/>}/>
             </Route>
+          ) : (
+            <Route path="*" element={<Page404/>}/>
           )}
-          <Route path="*" element={<Page404/>}/>
         </Routes>
-      </LoginContext.Provider>
-    </BrowserRouter>
+      </BrowserRouter>
   );
 }
 
-export {LoginContext}
 export default App;

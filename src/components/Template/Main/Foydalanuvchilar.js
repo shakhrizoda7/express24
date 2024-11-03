@@ -33,7 +33,7 @@ const initialData = [
 ];
 
 export default function Foydalanuvchilar() {
-  const [tableData, setTableData] = useState(initialData);
+  const [tableData] = useState(initialData);
 
   return (
     <FoydalanuvchiDiv>

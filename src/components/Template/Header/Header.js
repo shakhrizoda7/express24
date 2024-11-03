@@ -2,6 +2,8 @@ import React from 'react';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { TOGGLE_ASIDE } from '../../redux/Actions';
 
 const HeaderDiv = styled.div`
     width: 100%;
@@ -24,10 +26,12 @@ const HeaderDiv = styled.div`
     }
 `;
 
-export default function Header({toggleAside}) {
+export default function Header() {
+  const dispatch = useDispatch();
+
   return (
     <HeaderDiv>
-        <i class="bi bi-list fs-4" onClick={toggleAside}></i>
+        <i class="bi bi-list fs-4" onClick={() => dispatch({type: TOGGLE_ASIDE})}></i>
 
         <div className="admin">
             <Link to='admin' className='d-flex align-items-center gap-2'>
