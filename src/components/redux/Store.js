@@ -1,11 +1,10 @@
 import { createStore } from "redux";
-import { Reducer } from "./Reducer";
+import rootReducer from "./rootReducer";
 
 // create Redux store with the reducer
-const store = createStore(Reducer);
-
-// handle dispatch in store
-const dispatch = store.dispatch;
-export {dispatch};
+const store = createStore(
+    rootReducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 export default store;

@@ -15,8 +15,9 @@ const QoshilganlarDiv = styled.div`
 `;
 
 export default function Qoshilganlar() {
-    const category = useSelector((state) => state.category);
-    const foods = useSelector((state) => state.foods);
+  const category = useSelector((state) => state.addReducer.category);
+  const foods = useSelector((state) => state.addReducer.foods);
+
   return (
     <QoshilganlarDiv>
         {/* category div */}
@@ -46,11 +47,6 @@ export default function Qoshilganlar() {
                         </Card.Body>  
                     </Card>
                 ))}
-                {/* {foods.length > 0 ? (
-                    
-                ) : (
-                    <p>Hech qanday taom qo'shilmagan.</p>
-                )} */}
             </div>
         </div>
     </QoshilganlarDiv>

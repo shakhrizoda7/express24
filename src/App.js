@@ -12,20 +12,20 @@ import Taom from "./components/Template/Main/QoshishSec/Taom";
 import Qoshilganlar from "./components/Template/Main/QoshishSec/Qoshilganlar";
 import Admin from "./components/Template/Admin";
 import Landing from "./components/Landing";
-import Login from "./components/Login";
 import Page404 from "./components/Page404";
 
 
 function App() {
-  const isLogin = useSelector((state) => state.isLogin);
+  const isLogin = useSelector((state) => state.layout.isLogin);
 
   return (
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login/>}/>
-          <Route path="/login" element={<Landing/>}/>
+          <Route path="/" element={<Landing/>}/>
+
           {isLogin ? (
             <Route path="/dashboard" element={<Template/>}>
+              <Route index element={<Admin/>}/>
               <Route path="arizalar" element={<Arizalar/>}/>
               <Route path="yetkazilgan" element={<Yetkazilgan/>}/>
               <Route path="statistika" element={<Statistika/>}/>

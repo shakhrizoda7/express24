@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { addCategory } from '../../../redux/Reducer';
 import { useDispatch } from 'react-redux';
+import { addCategory } from '../../../redux/Actions';
 
 const KategoriyaDiv = styled.div`
   padding: 45px 146px 0 0;

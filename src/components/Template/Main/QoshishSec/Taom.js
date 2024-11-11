@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { addFood } from '../../../redux/Reducer';
+import { addFood } from '../../../redux/Actions';
 
 const TaomDiv = styled.div`
   display: flex;
@@ -65,15 +65,10 @@ const TaomDiv = styled.div`
 
 export default function Taom() {
   const dispatch = useDispatch();
+  const category = useSelector((state) => state.addReducer.category);
 
   // food state
-  const [food, setFood] = useState({
-    image: '',
-    foodname: '',
-    description: '',
-    price: '',
-    category: '',
-  });
+  const [food, setFood] = useState({image: '', foodname: '', description: '', price: '', category: ''});
 
   // onchange
   const handleChange = (e) => {
@@ -86,18 +81,12 @@ export default function Taom() {
       dispatch(addFood(food));
   
       // clear input
-      setFood({
-        image: '',
-        foodname: '',
-        description: '',
-        price: '',
-        category: '',
-      });
+      setFood({ image: '', foodname: '', description: '', price: '', category: ''});
     } else {
       alert("To'liq to'ldirilmagan");
     }
   };
-
+ 
   return (
     <TaomDiv>
       <div className="inputs">
@@ -127,9 +116,12 @@ export default function Taom() {
           
           <select name="category" value={food.category} onChange={handleChange}>
             <option value="">Kategoriya</option>
-            <option value="kategoriya 1">Kategoriya 1</option>
-            <option value="kategoriya 2">Kategoriya 2</option>
-            <option value="kategoriya 3">Kategoriya 3</option>
+
+            {category && category.length > 0 ? (
+              category.map((categoryItem) => (
+                <option value={categoryItem}>{categoryItem}</option>
+              ))
+            ) : (<option value="kategoriya 1" disabled>Kategoriya qo'shilmagan!</option>) }
           </select>
         </div>
       </div>

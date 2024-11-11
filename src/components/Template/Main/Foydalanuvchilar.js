@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, {useState } from 'react';
 import styled from 'styled-components';
 import SectionTitles from './SectionTitles';
+import { useDispatch, useSelector } from 'react-redux';
+import { editItem, removeTableUser } from '../../redux/Actions';
 
 const FoydalanuvchiDiv = styled.div`
     .description{
@@ -14,8 +16,25 @@ const FoydalanuvchiDiv = styled.div`
                 border-bottom: 2px solid #919699;
             }
         }
-        i{
-            cursor: pointer;
+
+        tbody{
+            .fullnameInp{
+                width: 170px;
+            }
+            .phoneInp{
+                width: 140px;
+            }
+            .roleInp{
+                width: 100px;
+            }    
+            input{
+                border: none;
+                outline: none;
+                padding: 0;
+            }
+            i{
+                cursor: pointer;
+            }
         }
     }
     .totalPriceDiv{
@@ -25,15 +44,29 @@ const FoydalanuvchiDiv = styled.div`
     }
 `;
 
-const initialData = [
-  {fullname: 'Abdulaziz Ochilov', phone: '+998 97 888 10 27', role: 'admin'},
-  {fullname: 'Ergashev Islom', phone: '+998 97 888 12 35', role: 'yetkazuvchi'},
-  {fullname: 'Samidullayev Bahodir', phone: '+998 93 234 10 23', role: 'foydalanuvchi'},
-  {fullname: 'To’ramurodov Shoislom', phone: '+998 90 375 67 15', role: 'foydalanuvchi'},
-];
-
 export default function Foydalanuvchilar() {
-  const [tableData] = useState(initialData);
+  const dispatch = useDispatch();
+  const [editIndex, setEditIndex] = useState(null);
+  const [editData, setEditData] = useState({});
+  const tableUserData = useSelector(state => state.layout.userTableData);
+
+  const handleEditClick = (index, item) => {
+    setEditIndex(index);
+    setEditData(item);
+  };
+
+  const handleInputChange = (e, field) => {
+    setEditData({...editData, [field]: e.target.value});
+  };
+
+  const handleSaveEdit = () => {
+    if (editIndex !== null) {
+        dispatch(editItem('userTableData', editIndex, editData));
+        
+        setEditIndex(null);  // Reset the index
+        setEditData({});     // Reset the data
+    }
+  }
 
   return (
     <FoydalanuvchiDiv>
@@ -51,21 +84,39 @@ export default function Foydalanuvchilar() {
                 </tr>
             </thead>
             <tbody>
-                {tableData.map((item, index) => (
+                {tableUserData.map((item, index) => (
                     <tr>
                         <td>{index+1}</td>
-                        <td>{item.fullname}</td>
-                        <td>{item.phone}</td>
-                        <td>{item.role}</td>
-                        <td className='px-0'><i class="bi bi-pen"></i></td>
-                        <td className='px-1 text-danger'><i class="bi bi-trash3"></i></td>
+                        <td>
+                            {editIndex === index ? (
+                                <input type="text" value={editData.fullname || ''} onChange={(e) => handleInputChange(e, 'fullname')}  className='fullnameInp'/>
+                            ) : item.fullname}
+                        </td>
+                        <td>
+                            {editIndex === index ? (
+                                <input type="text" value={editData.phone || ''} onChange={(e) => handleInputChange(e, 'phone')}  className='phoneInp'/>
+                            ) : item.phone}
+                        </td>
+                        <td>{editIndex === index ? (
+                                <input type="text" value={editData.role || ''} onChange={(e) => handleInputChange(e, 'role')}  className='roleInp'/>
+                            ) : item.role}
+                        </td>
+
+                        <td className='px-0'>
+                            {editIndex === index ? (
+                                <i class="bi bi-check-lg" onClick={handleSaveEdit}></i>
+                            ) : (
+                                <i className="bi bi-pen" onClick={() => handleEditClick(index, item)}></i>
+                            )}
+                        </td>
+                        <td className='px-1 text-danger' onClick={() => dispatch(removeTableUser('userTableData', index))}><i class="bi bi-trash3"></i></td>
                     </tr>
                 ))}
             </tbody>
         </table>
         <div className="totalPriceDiv">
             <p>Jami</p>
-            <p>{tableData.length} ta akkaunt</p>
+            <p>{tableUserData.length} ta akkaunt</p>
         </div>
     </FoydalanuvchiDiv>
   )

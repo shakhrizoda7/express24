@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import SectionTitles from '../SectionTitles';
 import { NavLink, Route, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import SectionTitles from '../SectionTitles';
 import Qoshilganlar from './Qoshilganlar';
 import Taom from './Taom';
 import Kategoriya from './Kategoriya';
-import { useDispatch, useSelector } from 'react-redux';
-import { addCategory, addFood } from '../../../redux/Reducer';
+import { addCategory, addFood } from '../../../redux/Actions';
 
 const QoshishDiv = styled.div`
   .qoshishBtns{
@@ -33,19 +33,8 @@ const StyledButton = styled.button`
 `;
 
 export default function Qoshish() {
-  const dispatch = useDispatch();
   const categories = useSelector(state => state.category);
   const foods = useSelector(state => state.food);
-
-  // add category function 
-  const handleCategoryAdd = (categpryItem) => {
-    dispatch(addCategory(categpryItem));
-  };
-
-  // add food function
-  const handleFoodAdd = (foodItem) => {
-    dispatch(addFood(foodItem));
-  };
 
   // btns data
   const qoshishBtnsData = [
@@ -71,9 +60,9 @@ export default function Qoshish() {
         </div>
 
         <Routes>
-            <Route path="kategoriya" element={<Kategoriya handleKategoriyaAdd={handleCategoryAdd}/>}/>
+            <Route path="kategoriya" element={<Kategoriya handleKategoriyaAdd={addCategory}/>}/>
             <Route index element={<Kategoriya/>}/>
-            <Route path="taom" element={<Taom handleFoodAdd={handleFoodAdd}/>}/>
+            <Route path="taom" element={<Taom handleFoodAdd={addFood}/>}/>
             <Route path="qoshilganlar" element={<Qoshilganlar katagoriya={categories} taom={foods}/>}/>
         </Routes>
     </QoshishDiv>
